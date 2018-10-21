@@ -8,6 +8,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import gui.listener.ConfigListener;
 import util.CenterPanel;
 import util.ColorUtil;
 import util.GUIUtil;
@@ -44,6 +45,13 @@ public class ConfigPanel extends JPanel {
 		
 		pSubmit.show(bSubmit);
 		this.add(pSubmit, BorderLayout.CENTER);
+		
+		addListener();
+	}
+	private void addListener() {
+		ConfigListener l=new ConfigListener();
+		bSubmit.addActionListener(l);
+		
 	}
 	public static void main(String[] args) {
 		GUIUtil.showPanel(ConfigPanel.instance);

@@ -47,7 +47,7 @@ public class ConfigDAO {
 	}
 	
 	public void update(Config config){
-		String sql="update config set key_=?, value=?,where id=?";
+		String sql="update config set key_=?, value=? where id=?";
 		try(Connection c=DBUtil.getConnection();
 			PreparedStatement ps=c.prepareStatement(sql);){
 			ps.setString(1, config.getKey());
