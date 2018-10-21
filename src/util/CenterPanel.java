@@ -7,7 +7,11 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-
+/*
+ * 居中的面板
+ * 可以选择放置的一个组件
+ * 组件是否拉伸以及拉伸比率 
+ */
 public class CenterPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 	//拉伸比率，面板上显示的组件，是否拉伸
