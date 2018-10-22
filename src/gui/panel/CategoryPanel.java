@@ -6,8 +6,12 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
 
+import entity.Category;
+import gui.listener.CategoryListener;
 import gui.model.CategoryTableModel;
+import service.CategoryService;
 import util.ColorUtil;
 import util.GUIUtil;
 
@@ -26,8 +30,10 @@ public class CategoryPanel extends JPanel {
 	public CategoryTableModel ctm=new CategoryTableModel();
 	public JTable t=new JTable(ctm);
 	
+	
 	private CategoryPanel(){
 		GUIUtil.setColor(ColorUtil.blueColor, bAdd,bEdit,bDelete);
+		t.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		JScrollPane sp=new JScrollPane(t);
 		JPanel pSubmit=new JPanel();
 		pSubmit.add(bAdd);
@@ -37,8 +43,36 @@ public class CategoryPanel extends JPanel {
 		this.setLayout(new BorderLayout());
 		this.add(sp, BorderLayout.CENTER);
 		this.add(pSubmit, BorderLayout.SOUTH);
+		addListener();
+	}
+	private void addListener() {
+		CategoryListener l=new CategoryListener();
+		bAdd.addActionListener(l);
+		bEdit.addActionListener(l);
+		bDelete.addActionListener(l);
+		
 	}
 	public static void main(String[] args) {
 		GUIUtil.showPanel(CategoryPanel.instance);
+	}
+	public Category getSelectedCategory(){
+		Category category=null;
+		int index=t.getSelectedRow();
+		if(index!=-1)
+			category=ctm.cs.get(index);
+		return category;
+	}
+	public void updateData(){
+		ctm.cs=new CategoryService().list();
+		t.updateUI();
+		t.getSelectionModel().setSelectionInterval(0,0);
+		if(0==ctm.cs.size()){
+			bEdit.setEnabled(false);
+			bDelete.setEnabled(false);
+		}else{
+			bEdit.setEnabled(true);
+			bDelete.setEnabled(true);
+		}
+		
 	}
 }
