@@ -15,7 +15,7 @@ import service.CategoryService;
 import util.ColorUtil;
 import util.GUIUtil;
 
-public class CategoryPanel extends JPanel {
+public class CategoryPanel extends WorkingPanel {
 
 	private static final long serialVersionUID = 1L;
 	static{
@@ -45,7 +45,7 @@ public class CategoryPanel extends JPanel {
 		this.add(pSubmit, BorderLayout.SOUTH);
 		addListener();
 	}
-	private void addListener() {
+	public void addListener() {
 		CategoryListener l=new CategoryListener();
 		bAdd.addActionListener(l);
 		bEdit.addActionListener(l);

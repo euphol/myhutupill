@@ -7,6 +7,8 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
+import gui.panel.WorkingPanel;
 /*
  * 居中的面板
  * 可以选择放置的一个组件
@@ -35,6 +37,8 @@ public class CenterPanel extends JPanel {
 			remove(each);
 		}
 		add(p);
+		if(p instanceof WorkingPanel)
+			((WorkingPanel)p).updateData();
 		this.updateUI();
 	}
 	//依据是否拉伸，将相应大小的组件c放到面板中央
