@@ -3,14 +3,12 @@ package util;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
-
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+import java.util.List;
 
 import com.objectplanet.chart.BarChart;
 import com.objectplanet.chart.Chart;
+
+import entity.Record;
 
 public class ChartUtil {
 	/*
@@ -26,8 +24,8 @@ public class ChartUtil {
 		return max;
 	}
 	//生成日期横坐标
-	private static String[] sampleLables(){
-		String[] sampleLables=new String[30];
+	private static String[] sampleLables(List<Record> rs){
+		String[] sampleLables=new String[rs.size()];
 			for (int i = 0; i < sampleLables.length; i++) {
 				if(0==i%5)
 					sampleLables[i]=String.valueOf(i+1+"日");
@@ -35,9 +33,9 @@ public class ChartUtil {
 			return sampleLables;
 	}
 	//生成图表
-	public static Image getImage(int width,int height){
-		double[] sampleValues=sampleValues();
-		String[] sampleLables=sampleLables();
+	public static Image getImage(List<Record> rs, int width,int height){
+		double[] sampleValues=sampleValues(rs);
+		String[] sampleLables=sampleLables(rs);
 		int max=max(sampleValues);
 		Color[] sampleColors=new Color[]{ColorUtil.blueColor};
 		
@@ -62,23 +60,14 @@ public class ChartUtil {
 		Image im=chart.getImage(width,height);
 		return im;
 	}
-	private static double[] sampleValues() {
+	private static double[] sampleValues(List<Record> rs) {
 		// TODO Auto-generated method stub
-		double[] result=new double[30];
+		double[] result=new double[rs.size()];
 		for (int i = 0; i < result.length; i++) {
-			result[i]=(int)(Math.random()*300);
+			result[i]=rs.get(i).getSpend();
 		}
 		return result;
 	}
-	public static void main(String[] args) {
-		JPanel p=new JPanel();
-		JLabel l=new JLabel();
-		Image img=ChartUtil.getImage(400, 300);
-		Icon icon=new ImageIcon(img);
-		l.setIcon(icon);
-		p.add(l);
-		GUIUtil.showPanel(p);
-		System.out.println("测试");
-	}
+
 	
 }
